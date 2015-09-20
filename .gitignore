@@ -1,0 +1,15 @@
+# Compiled source #
+###################
+*.o
+*.so
+
+# Backups #
+###########
+*~
+*.bak
+*-bak
+*.bck
+_autosave-*
+
+### kdevelop ###
+*kdev4

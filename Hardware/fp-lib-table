@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name w_conn)(type KiCad)(uri ${KIPRJMOD}/lib/w_conn_misc.pretty)(options "")(descr ""))
+  (lib (name seeed)(type KiCad)(uri ${KIPRJMOD}/lib/seeed.pretty)(options "")(descr ""))
+)
