@@ -675,8 +675,5 @@ F 3 "" H 5350 1200 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	5150 1300 5150 1200
-Text GLabel 5100 1100 0    60   Input ~ 0
-Terre
-Wire Wire Line
-	5100 1100 5150 1100
+NoConn ~ 5150 1100
 $EndSCHEMATC
