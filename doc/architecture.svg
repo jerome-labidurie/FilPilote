@@ -15,7 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="architecture.svg">
+   sodipodi:docname="architecture.svg"
+   inkscape:export-filename="/home/jjl/sources/github/FilPilote/doc/architecture.png"
+   inkscape:export-xdpi="261"
+   inkscape:export-ydpi="261">
   <defs
      id="defs4">
     <marker
@@ -458,7 +461,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.3434203"
-     inkscape:cx="191.91323"
+     inkscape:cx="96.113083"
      inkscape:cy="98.69339"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
