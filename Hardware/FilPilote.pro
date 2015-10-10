@@ -1,4 +1,4 @@
-update=dim. 27 sept. 2015 14:12:01 CEST
+update=sam. 10 oct. 2015 11:41:04 CEST
 version=1
 last_client=kicad
 [cvpcb]
@@ -63,3 +63,13 @@ LibName29=atmel
 LibName30=contrib
 LibName31=valves
 LibName32=w_connectors
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=pdf/
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
