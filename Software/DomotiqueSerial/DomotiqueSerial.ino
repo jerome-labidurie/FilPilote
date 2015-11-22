@@ -6,13 +6,23 @@
  * A Chacon command via RF433MHz can also be activated.
  */
 
-/** activate chacon function */
-// TODO: WTF #ifdef ?
+/** activate chacon function 
+ * Comment to disable.
+ */
 #define CHACON 
 
+// BOF preprocessor bug prevent - insert me on top of your arduino-code
+// From: http://subethasoftware.com/2013/04/09/arduino-compiler-problem-with-ifdefs-solved/
+#if 1
+__asm volatile ("nop");
+#endif
 
 #ifdef CHACON
+/** RF send pin */
 #define CHACON_SEND 12
+/** RCSwitch lib for chacon command
+ * @See https://github.com/sui77/rc-switch
+ */
 #include <RCSwitch.h>
 RCSwitch mySwitch = RCSwitch();
 #endif
@@ -25,7 +35,8 @@ char line[LINE_LEN];
 #define PIN_PLUS 0
 #define PIN_MOINS 1
 #define NB_FILS 5
-// TODO: change pinout pour meilleur cablage :)
+/** Pinouts for FilPilote commands
+ */
 uint8_t pins[NB_FILS][2] = {
   {10, 11},
   {8, 9},
@@ -38,7 +49,7 @@ char* filnames[NB_FILS] = {
   "Chambre E",
   "Chambre M",
   "Buanderie",
-  "3eme"
+  "3eme",
 };
 
 /** Display cmdline help
@@ -51,6 +62,7 @@ void help (void) {
    Serial.println (" <cmd> : C : Confort");
    Serial.println ("         A : Arret");
    Serial.println ("         G : Hors Gel");
+   Serial.println ("         E : Eco");
    Serial.println (" eg : A 0 : arrete le chauffage 0");
    for (i=0; i<NB_FILS; i++) {
       Serial.print (" Chauffage ");
@@ -69,7 +81,7 @@ void help (void) {
 } // help
 
 /** Set mode for one fil
- * @param[in] fil the filpilote number [0:NB_FILS[
+ * @param[in] fil the filpilote number [0..NB_FILS[
  * @param[in] mode the filpilote mode
  * @return true if success
  */
@@ -77,16 +89,20 @@ boolean setFilMode (uint8_t fil, char mode) {
   if (fil >= NB_FILS) return false;
   
   switch (mode) {
-    case 'C':
-       digitalWrite (pins[fil][PIN_PLUS], LOW);
+    case 'C': // Confort
+       digitalWrite (pins[fil][PIN_PLUS],  LOW);
        digitalWrite (pins[fil][PIN_MOINS], LOW);
        break;
-    case 'A':
-       digitalWrite (pins[fil][PIN_PLUS], HIGH);
+    case 'A':  // Arret
+       digitalWrite (pins[fil][PIN_PLUS],  HIGH);
        digitalWrite (pins[fil][PIN_MOINS], LOW);
        break;
-    case 'G':
-       digitalWrite (pins[fil][PIN_PLUS], LOW);
+    case 'G': // Hors Gel
+       digitalWrite (pins[fil][PIN_PLUS],  LOW);
+       digitalWrite (pins[fil][PIN_MOINS], HIGH);
+       break;
+    case 'E': // Eco
+       digitalWrite (pins[fil][PIN_PLUS],  HIGH);
        digitalWrite (pins[fil][PIN_MOINS], HIGH);
        break;
     default:
@@ -127,19 +143,23 @@ void loop() {
         case 'C':
         case 'A':
         case 'G':
+        case 'E':
           if (setFilMode ( line[2] - '0', line[0] ) == true) {
-            Serial.println (filnames[line[2] - '0']);
+            Serial.print ("OK ");
           } else {
-            Serial.println ("Echec");
+            Serial.println ("KO ");
           }
+          Serial.println (filnames[line[2] - '0']);
           break;
         
 #ifdef CHACON
          case 'N': // On
             mySwitch.switchOn (line[2]-'0', line[4]-'0');
+            Serial.println ("OK ");
             break;
          case 'F': // Off
             mySwitch.switchOff (line[2]-'0', line[4]-'0');
+            Serial.println ("OK ");
             break;
 #endif
          case 'h':
@@ -148,7 +168,7 @@ void loop() {
             help();
             break;
          default:
-            Serial.print ("Unknown command:");
+            Serial.print ("KO Unknown command:");
             Serial.println(line[0]);
       }
    }
