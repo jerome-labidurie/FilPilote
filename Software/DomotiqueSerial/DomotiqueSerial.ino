@@ -34,7 +34,7 @@ char line[LINE_LEN];
 /** Pinouts */
 #define PIN_PLUS 0
 #define PIN_MOINS 1
-#define NB_FILS 5
+#define NB_FILS 6
 /** Pinouts for FilPilote commands
  */
 uint8_t pins[NB_FILS][2] = {
@@ -43,6 +43,7 @@ uint8_t pins[NB_FILS][2] = {
   {6, 7},
   {4, 5},
   {2, 3},
+  {A5, A4},
 };
 char* filnames[NB_FILS] = {
   "Chambre J&N",
@@ -50,6 +51,7 @@ char* filnames[NB_FILS] = {
   "Chambre M",
   "Buanderie",
   "3eme",
+  "Entree",
 };
 
 /** Display cmdline help
@@ -89,19 +91,23 @@ boolean setFilMode (uint8_t fil, char mode) {
   if (fil >= NB_FILS) return false;
   
   switch (mode) {
-    case 'C': // Confort
+    case 'C': 
+    case 'c': // Confort
        digitalWrite (pins[fil][PIN_PLUS],  LOW);
        digitalWrite (pins[fil][PIN_MOINS], LOW);
        break;
     case 'A':  // Arret
+    case 'a':
        digitalWrite (pins[fil][PIN_PLUS],  HIGH);
        digitalWrite (pins[fil][PIN_MOINS], LOW);
        break;
     case 'G': // Hors Gel
+    case 'g':
        digitalWrite (pins[fil][PIN_PLUS],  LOW);
        digitalWrite (pins[fil][PIN_MOINS], HIGH);
        break;
     case 'E': // Eco
+    case 'e':
        digitalWrite (pins[fil][PIN_PLUS],  HIGH);
        digitalWrite (pins[fil][PIN_MOINS], HIGH);
        break;
@@ -126,7 +132,7 @@ void setup() {
    }
 
 #ifdef CHACON
-   // Transmitter is connected to Arduino Pin #12
+   // Transmitter is connected to Arduino Pin CHACON_SEND
    mySwitch.enableTransmit(CHACON_SEND);
    // Optional set number of transmission repetitions.
    mySwitch.setRepeatTransmit(15);
@@ -140,10 +146,10 @@ void loop() {
    if (Serial.available()) {
       Serial.readBytesUntil('\n', line, LINE_LEN);
       switch (line[0]) {
-        case 'C':
-        case 'A':
-        case 'G':
-        case 'E':
+        case 'C': case 'c':
+        case 'A': case 'a':
+        case 'G': case 'g':
+        case 'E': case 'e':
           if (setFilMode ( line[2] - '0', line[0] ) == true) {
             Serial.print ("OK ");
           } else {
@@ -154,10 +160,12 @@ void loop() {
         
 #ifdef CHACON
          case 'N': // On
+         case 'n':
             mySwitch.switchOn (line[2]-'0', line[4]-'0');
             Serial.println ("OK ");
             break;
          case 'F': // Off
+         case 'f':
             mySwitch.switchOff (line[2]-'0', line[4]-'0');
             Serial.println ("OK ");
             break;
