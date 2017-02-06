@@ -137,7 +137,13 @@ void setup() {
    // Optional set number of transmission repetitions.
    mySwitch.setRepeatTransmit(15);
 #endif
-
+  pinMode(13, OUTPUT);
+  for (i=0; i < 3; i++) {
+    digitalWrite(13, HIGH);
+    delay(200);
+    digitalWrite(13, LOW);
+    delay(200);
+  }
 }
 
 

@@ -60,7 +60,7 @@ fi
 # stty -F "$DEV" -g
 
 # serial port: 9600 8N1
-stty -F "$DEV" 9600 -parity cs8 -cstopb
+stty -F "$DEV" 9600 -parity cs8 -cstopb -hupcl
 # stty -F $DEV cs8 9600 ignbrk -brkint -icrnl -imaxbel -opost -onlcr -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke noflsh -ixon -crtscts
 
 # connect file 3 to serial device
