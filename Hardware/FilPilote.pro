@@ -1,4 +1,4 @@
-update=sam. 10 oct. 2015 11:41:04 CEST
+update=dim. 07 oct. 2018 15:40:32 CEST
 version=1
 last_client=kicad
 [cvpcb]
@@ -27,6 +27,16 @@ BoardOutlineThickness=0.100000000000
 ModuleOutlineThickness=0.150000000000
 [general]
 version=1
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=pdf/
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
 [eeschema]
 version=1
 LibDir=lib
@@ -63,13 +73,3 @@ LibName29=atmel
 LibName30=contrib
 LibName31=valves
 LibName32=w_connectors
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=pdf/
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=60
