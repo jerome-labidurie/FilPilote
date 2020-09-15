@@ -15,7 +15,7 @@ args = parser.parse_args()
 
 print args
 
-ser = serial.Serial(args.device, 9600,  bytesize=8, parity='N', stopbits=1)
+ser = serial.Serial(args.device, 9600,  bytesize=8, parity='N', stopbits=1, timeout=2)
 print(ser)
 for i in range(args.repeat):
 	str=args.cmd+" "+' '.join(args.arguments)+"\n"
